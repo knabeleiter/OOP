@@ -1,0 +1,264 @@
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+struct Birthday {
+	int day, month, year;
+};
+
+struct FIO {
+	string Firstname, LastName, FLName;
+};
+
+class BankOfKnowledge {
+private:
+	vector<FIO> fio;
+	vector<Birthday> birthday;
+	vector<int> course;
+	vector<string> department;
+
+	vector<FIO> restFIO() {
+		return fio;
+	}
+
+public:
+
+	BankOfKnowledge() = default;
+
+	BankOfKnowledge(FIO InFIO, Birthday InBirthday, int Incourse, string Indepartment) {
+		fio.push_back(InFIO);
+		birthday.push_back(InBirthday);
+		course.push_back(Incourse);
+		department.push_back(Indepartment);
+	}
+
+	void FillingMassive(FIO InFIO, Birthday InBirthday, int Incourse, string Indepartment) {
+		fio.push_back(InFIO);
+		birthday.push_back(InBirthday);
+		course.push_back(Incourse);
+		department.push_back(Indepartment);
+	}
+
+	int SumPeoplesDepartment(string FoundedDepartment) {
+
+		int sum = 0;
+		for (int i = 0; i != department.size(); i++) {
+			if (FoundedDepartment == department[i]) {
+				++sum;
+			};
+		}
+
+		return sum;
+	}
+
+	int size() {
+		return department.size();
+	}
+
+	BankOfKnowledge(const BankOfKnowledge &other) {
+		 
+		copy(other.fio.begin(), other.fio.end(), back_inserter(fio));
+		copy(other.birthday.begin(), other.birthday.end(), back_inserter(birthday));
+		copy(other.course.begin(), other.course.end(), back_inserter(course));
+		copy(other.department.begin(), other.department.end(), back_inserter(department));
+	}
+
+	BankOfKnowledge(BankOfKnowledge &&other) :  fio(move(other.fio)),birthday(move(other.birthday)), course(move(other.course)), department(move(other.department)) {
+		//swap(fio, other.fio);
+		cout << "Constructor assighment\n" << fio.data() << " " << other.fio.data() << "\n";
+	}
+
+	virtual void print() {
+		cout << msg1 << "\n";
+		cout << msg2 << "\n";
+		cout << msg3 << "\n";
+	}
+
+	string msg1 = "A";
+private:
+	string msg2 = "B";
+protected:
+	string msg3 = "C";
+	
+public:
+	~BankOfKnowledge() {
+		cout << "Destructor initiialized\n";
+	};
+
+};
+
+class DINO : public BankOfKnowledge 
+{
+private:
+	vector<int> index;
+public:
+	virtual void print() override
+	{
+		cout << msg1 << "\n";
+		//cout << msg2 << "\n";
+		cout << msg3 << "\n";
+	}
+
+	void add(int num)
+	{
+		index.push_back(num);
+	}
+
+	int size()
+	{
+		return index.size();
+	}
+
+	int indetificator(int n)
+	{
+		return index[n];
+	}
+};
+
+class Polytech : private BankOfKnowledge
+{
+private:
+	vector<string> Buildings;
+public:
+	virtual void print() override
+	{
+		cout << msg1 << "\n";
+		//cout << msg2 << "\n";
+		cout << msg3 << "\n";
+	}
+
+	void fill()
+	{
+		Buildings.push_back("Library");
+		Buildings.push_back("Museum");
+		Buildings.push_back("Plant");
+	}
+
+	string Building(int n) 
+	{
+		return Buildings[n];
+	}
+};
+
+class MAI : protected DINO
+{
+private:
+	vector<string> Gears;
+
+public:
+	void fill()
+	{
+		Gears.push_back("Hammer");
+		Gears.push_back("Plane");
+		Gears.push_back("Drill");
+	}
+
+	void print(int n, DINO dino)
+	{
+		cout << Gears[n] << " " << dino.indetificator(n) << "\n";
+	}
+
+};
+
+int main() {
+	/*BankOfKnowledge institute;
+
+	cout << "Please filling array of peoples \n";
+	
+	cout << "Enter FIO \n";
+	string fname;
+	while (cin >> fname) {
+		FIO fio;
+		Birthday birthday;
+		int course;
+		string department;
+
+		fio.Firstname = fname;
+
+		cin >> fname;
+		fio.LastName = fname;
+
+		cin >> fname;
+		fio.FLName = fname;
+
+		int number = 0;
+		cout << "Enter Birthday \n";
+
+		cin >> number;
+		birthday.day = number;
+
+		cin >> number;
+		birthday.month = number;
+
+		cin >> number;
+		birthday.year = number;
+
+		cout << "Enter Course \n";
+
+		cin >> number;
+		course = number;
+
+		cout << "Enter Department \n";
+		cin >> fname;
+		department = fname;
+
+		institute(fio, birthday, course, department);
+
+		cout << "If you want to stop please enter: 0 \n";
+		cin >> fname;
+		if (fname == "0") {
+			break;
+		}
+
+		cout << "Enter FIO \n";
+	}
+	
+	string department;
+	int sum;
+
+	cout << "Enter the department for the sum all peoples: \n\n\n";
+	cin >> department;*/
+
+	FIO fio = { "Sergey", "Ivanov",  "Ivanovich" };
+	FIO fio2 = {"Anton", "Efremov",  "Andreevich"};
+	Birthday bd = { 27, 01, 1990 };
+	Birthday bd2 = {15, 12, 1985};
+
+	BankOfKnowledge institute(fio, bd, 3, "DEL");
+	institute.FillingMassive(fio2, bd2, 2, "DEL");
+
+	BankOfKnowledge MIET(institute);
+	BankOfKnowledge ENOT(move(institute));
+
+	cout << MIET.SumPeoplesDepartment("DEL") << "\n";
+	cout << institute.SumPeoplesDepartment("DEL") << "\n";
+	cout << ENOT.SumPeoplesDepartment("DEL") << "\n";
+
+	//sum = institute.SumPeoplesDepartment(department);
+	//cout << sum;
+
+	std::cout << "\n\n\n\n\n";
+
+	MIET.print();
+
+	DINO Studs;
+	Polytech Buildings;
+	MAI Equipments;
+
+	Studs.print();
+
+	Studs.add(124853);
+	Studs.add(654123);
+	Studs.add(878631);
+
+	Buildings.fill();
+	Buildings.print();
+	cout << Buildings.Building(1) << "\n";
+
+	Equipments.fill();
+	Equipments.print(0, Studs);
+
+	return 0;
+}
