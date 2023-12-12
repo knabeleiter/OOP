@@ -1,0 +1,10 @@
+﻿  BotanicalGarden.cpp
+  Inventorization.cpp
+C:\Study\MIET\OOP\Lab6_1\Lab6.1\Inventorization.cpp(18,25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Museum.cpp
+  Source.cpp
+C:\Study\MIET\OOP\Lab6_1\Lab6.1\Source.cpp(39,17): warning C4101: 'Ouroboros': unreferenced local variable
+  UsefulClass.cpp
+  Zoo.cpp
+  Generating Code...
+  Test.vcxproj -> C:\Study\MIET\OOP\Lab6_1\x64\Debug\OOP_Lab6.1.exe
