@@ -1,0 +1,3 @@
+﻿  Source.cpp
+E:\Other\OOP\Lab7\Lab7\Source.cpp(32,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Lab7.vcxproj -> E:\Other\OOP\Lab7\x64\Debug\Lab7.exe
